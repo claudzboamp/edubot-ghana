@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
 const SYSTEM = (subject) => `You are EduBot Ghana, a warm and encouraging AI tutor for Ghanaian students from JHS to university, following the Ghana Education Service (GES) curriculum including BECE and WASSCE.
 
@@ -56,7 +58,7 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => res.send("EduBot Ghana API is running 🇬🇭"));
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`EduBot backend running on port ${PORT}`));
